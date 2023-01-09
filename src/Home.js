@@ -2,7 +2,6 @@ import { View, Text, TouchableOpacity, TextInput, StyleSheet, SafeAreaView} from
 import React, {useState, useEffect} from 'react'
 import { useNavigation } from '@react-navigation/native'
 import {firebase} from '../config'
-import MyBottomNavigator from '../MyBottomNavigator'
 import { Pedometer } from 'expo-sensors';
 import { ScrollView } from 'react-native-gesture-handler'
 import { RefreshControl } from 'react-native';

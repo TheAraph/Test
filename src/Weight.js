@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, SafeAreaView, Pressable, Button, TextInput } fr
 import { NavigationContainer } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native'
 import {firebase} from '../config'
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Weight = () => {
     const navigation = useNavigation()
@@ -21,18 +22,59 @@ const Weight = () => {
         })
       }, [])
 
+    const [age, setAge] = useState('')
+    useEffect(() => {
+        firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid).get()
+        .then((snapshot) => {
+          if(snapshot.exists){
+            setAge(snapshot.data().age)
+          }
+          else{
+            console.log('User does not exist')
+          }
+        })
+      }, [])
+      
+      const [height, setHeight] = useState('')
+      useEffect(() => {
+        firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid).get()
+        .then((snapshot) => {
+          if(snapshot.exists){
+            setHeight(snapshot.data().height)
+          }
+          else{
+            console.log('User does not exist')
+          }
+        })
+      }, [])
+
+      // Declare weightLoss and initialize it to 0
+      let weightLoss = 0;
+      let weightGain = 0;
+      let maintainWeight = 0;
+
+      // Assign the value of the equation to weightLoss
+      weightLoss = ((10 * weight) + (6.25 * height) - (5 * age) + 5);
+      maintainWeight = (((10 * weight) + (6.25 * height) - (5 * age) + 5) * 1.2);
+      weightGain = (maintainWeight - weightLoss) + (((10 * weight) + (6.25 * height) - (5 * age) + 5) * 1.2)
+      
   return (
+    <ScrollView>
     <View style = {{flex:1, justifyContent:'center', alignItems:'center'}}>
       <Text style={styles.headline4}>Current Weight</Text>
       <Text style={styles.headline2BLACK}>{weight}</Text>
-      <Text style={styles.headline4}>Weight Progress</Text>
-      <Text style={styles.headline2BLACK}>-4KG</Text>
-      <Text style={styles.headline4}>Calories Lost By Walk</Text>
-      <Text style={styles.headline2BLACK}>33 cal.</Text>
-      <Pressable style = {styles.button} onPress = {() => {props.navigation.navigate('LogWeight')}}>
+      <Text style={styles.headline5}>Recommended Calories:</Text>
+      <Text style={styles.headline4}>To Maintain Weight</Text>
+      <Text style={styles.headline2BLACK}>{maintainWeight}</Text>
+      <Text style={styles.headline4}>For Weight Loss</Text>
+      <Text style={styles.headline2BLACK}>{weightLoss}</Text>
+      <Text style={styles.headline4}>For Weight Gain</Text>
+      <Text style={styles.headline2BLACK}>{weightGain}</Text>
+      <Pressable style = {styles.button} onPress = {() => navigation.navigate('LogWeight')}>
         <Text style = {styles.btntext}>Log Weight</Text>
       </Pressable>
     </View>
+    </ScrollView>
   )
 }
 
@@ -90,6 +132,12 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     fontWeight: 'bold',
     marginBottom: 30,
+  },
+  headline5:{
+    fontFamily: "Helvetica",
+    fontSize: 24,
+    color: "#000",
+    margin: 10,
   },
   headline2BLACK:{
     fontFamily: "Helvetica",

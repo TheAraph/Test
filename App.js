@@ -12,6 +12,9 @@ import Resources from "./src/Resources";
 import Weight from "./src/Weight";
 import FoodDrink from "./src/FoodDrink";
 import Sleep from "./src/Sleep";
+import LogWeight from "./src/LogWeight";
+import LogDrink from "./src/LogDrink";
+import LogFood from "./src/LogFood";
 
 const Stack = createStackNavigator();
 
@@ -180,7 +183,64 @@ function App(){
         component = {FoodDrink}
 
         options={{
-          headerTitle: () => <Header name = "FoodDrink"/>,
+          headerTitle: () => <Header name = "Food & Drink"/>,
+          headerStyle: {
+            height:98,
+            borderBottomLeftRadius:30,
+            borderBottomRightRadius:30,
+            backgroundColor: '#FFFFFF',
+            shadowColor: '#000',
+            shadowRadius: 10,
+            elevation: 25
+          }
+        }}
+
+        
+        />
+        <Stack.Screen 
+        name = "LogWeight" 
+        component = {LogWeight}
+
+        options={{
+          headerTitle: () => <Header name = "Log Weight"/>,
+          headerStyle: {
+            height:98,
+            borderBottomLeftRadius:30,
+            borderBottomRightRadius:30,
+            backgroundColor: '#FFFFFF',
+            shadowColor: '#000',
+            shadowRadius: 10,
+            elevation: 25
+          }
+        }}
+
+        
+        />
+        <Stack.Screen 
+        name = "LogDrink" 
+        component = {LogDrink}
+
+        options={{
+          headerTitle: () => <Header name = "Log Drink"/>,
+          headerStyle: {
+            height:98,
+            borderBottomLeftRadius:30,
+            borderBottomRightRadius:30,
+            backgroundColor: '#FFFFFF',
+            shadowColor: '#000',
+            shadowRadius: 10,
+            elevation: 25
+          }
+        }}
+
+        
+        />
+        <Stack.Screen 
+        name = "LogFood" 
+        component = {LogFood}
+
+        options={{
+          headerTitle: () => <Header name = "Log Food"/>,
           headerStyle: {
             height:98,
             borderBottomLeftRadius:30,

@@ -7,15 +7,15 @@ import {firebase} from '../config'
 import { ScrollView } from 'react-native-gesture-handler';
 
 
-const LogWeight = () => {
+const LogDrink = () => {
     const navigation = useNavigation()
     
-    const [weight, setWeight] = useState('')
+    const [waterDrank, setWaterDrank] = useState('')
     useEffect(() => {
         firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid).get()
         .then((snapshot) => {
           if(snapshot.exists){
-            setWeight(snapshot.data().weight)
+            setWaterDrank(snapshot.data().waterDrank)
           }
           else{
             console.log('User does not exist')
@@ -23,18 +23,18 @@ const LogWeight = () => {
         })
       }, [])
 
-      const updateWeight = () => {
+      const updateWater = () => {
         const db = firebase.firestore();
         db.collection("users").doc(firebase.auth().currentUser.uid).update({
-            weight: weight
+            waterDrank: waterDrank
         })
         .then(function() {
-            console.log("Weight successfully updated!");
-            alert('Weight successfully updated!')
+            console.log("Water Drank successfully updated!");
+            alert('Water Drank successfully updated!')
             navigation.navigate('Health');
         })
         .catch(function(error) {
-            console.error("Error updating weight: ", error);
+            console.error("Error updating Water Drank: ", error);
         });
     }
 
@@ -42,18 +42,18 @@ const LogWeight = () => {
     <ScrollView>
     <View>
       <View style = {styles.container}>
-      <Text style={styles.Headline4}>Enter Current Weight:</Text>
+      <Text style={styles.Headline4}>Enter Water Drank in Litres:</Text>
       <TextInput
             style={styles.textInput}
-            placeholder="Current Weight"
-            onChangeText={(weight) => setWeight(weight)}
+            placeholder="Water Drank"
+            onChangeText={(waterDrank) => setWaterDrank(waterDrank)}
             keyboardType="number-pad"
             autoCorrect={false}
         />
-      <Pressable style = {styles.Button} onPress = {() => updateWeight()}>
+      <Pressable style = {styles.Button} onPress = {() => updateWater()}>
         <Text style = {styles.ButtonText}>Confirm</Text>
       </Pressable>
-      <Pressable style = {styles.Button} onPress = {() => navigation.navigate('Weight')}>
+      <Pressable style = {styles.Button} onPress = {() => navigation.navigate('FoodDrink')}>
         <Text style = {styles.ButtonText}>Back</Text>
       </Pressable>
     </View>
@@ -62,7 +62,7 @@ const LogWeight = () => {
   )
 }
 
-export default LogWeight
+export default LogDrink
 
 const styles = StyleSheet.create({
     container:{

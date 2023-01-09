@@ -12,6 +12,7 @@ const Register = () => {
   const [password, setPassword] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
+  const [age, setAge] = useState('')
   const [height, setHeight] = useState('')
   const [weight, setWeight] = useState('')
   const [waterGoal, setWaterGoal] = useState('')
@@ -20,7 +21,7 @@ const Register = () => {
   
 
   //registeruser function
-  registerUser = async (email, password, firstName, lastName, weight, weightGoal, height, waterGoal, calorieGoal) => {
+  registerUser = async (email, password, firstName, lastName, weight, weightGoal, height, waterGoal, calorieGoal, age) => {
     //before moving wait for firebase auth
     await firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(() => { //when firebase auth is present, send email verification
@@ -44,7 +45,10 @@ const Register = () => {
           weightGoal,
           height,
           waterGoal,
-          calorieGoal
+          calorieGoal,
+          age,
+          caloriesConsumed : 0,
+          waterDrank: 0
         })
       })
       .catch((error) => {
@@ -99,6 +103,13 @@ return(
         <View style = {{marginTop: 20}}>
         <TextInput
             style={styles.textInput}
+            placeholder="Age"
+            onChangeText={(age) => setAge(age)}
+            autoCorrect={false}
+            keyboardType="number-pad"
+        />
+        <TextInput
+            style={styles.textInput}
             placeholder="Current Weight in kg"
             onChangeText={(weight) => setWeight(weight)}
             autoCorrect={false}
@@ -134,7 +145,7 @@ return(
         />
         <TouchableOpacity 
             style = {styles.Button}
-            onPress = {() => registerUser(email, password, firstName, lastName, weight, weightGoal, height, calorieGoal, waterGoal)}>
+            onPress = {() => registerUser(email, password, firstName, lastName, weight, weightGoal, height, waterGoal, calorieGoal, age)}>
             <Text style = 
                 {styles.ButtonText}>Sign Up</Text>
         </TouchableOpacity>
