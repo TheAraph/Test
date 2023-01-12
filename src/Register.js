@@ -48,7 +48,8 @@ const Register = () => {
           calorieGoal,
           age,
           caloriesConsumed : 0,
-          waterDrank: 0
+          waterDrank: 0,
+          stepCounter: 0
         })
       })
       .catch((error) => {

@@ -88,6 +88,12 @@ const Home = () => {
           </TouchableOpacity>
           <TouchableOpacity 
             style = {styles.Button2}
+            onPress = {() => navigation.navigate('Resources')}>
+            <Text style =  
+                {styles.Button2Text}>Resources</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style = {styles.Button2}
             onPress = {() => {firebase.auth().signOut()}}>
             <Text style =  
                 {styles.Button2Text}>Log Out</Text>
@@ -105,7 +111,7 @@ const styles = StyleSheet.create({
   container:{
       flex: 1,
       alignItems: "center",
-      marginTop:100,
+      marginTop:20,
   },
   textInput:{
       alignItems: 'center',
